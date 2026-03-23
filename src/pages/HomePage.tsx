@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import { SEOHead } from '@/components/layout/SEOHead';
+import { SEOHead, SITE_URL } from '@/components/layout/SEOHead';
 import { tools } from '@/config/tools';
 import {
   Image,
@@ -29,12 +29,45 @@ const colorMap: Record<string, { icon: string; bg: string; border: string }> = {
   cyan: { icon: 'text-cyan-600 dark:text-cyan-400', bg: 'bg-cyan-50 dark:bg-cyan-500/10', border: 'group-hover:border-cyan-200 dark:group-hover:border-cyan-500/30' },
 };
 
+const homeJsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'WebApplication',
+  name: 'Veloxx PDF Tools',
+  url: SITE_URL,
+  description: 'Free online PDF tools — merge, split, compress, convert PDF files. 100% browser-based, no file uploads required. Privacy-first.',
+  applicationCategory: 'UtilityApplication',
+  operatingSystem: 'Any',
+  offers: {
+    '@type': 'Offer',
+    price: '0',
+    priceCurrency: 'USD',
+  },
+  creator: {
+    '@type': 'Organization',
+    name: 'Veloxx.ai',
+    url: 'https://veloxx.ai',
+  },
+  featureList: [
+    'Merge PDF files',
+    'Split PDF by pages',
+    'Compress PDF file size',
+    'Convert JPG to PDF',
+    'Convert PDF to JPG',
+    'No file upload required',
+    'Works offline after first load',
+    '100% browser-based processing',
+  ],
+};
+
 export function HomePage() {
   return (
     <>
       <SEOHead
-        title="Free PDF Tools Online — No Upload Required | Veloxx Tools"
-        description="Free online PDF tools — merge, split, compress, convert. 100% browser-based, no file uploads. Privacy-first by Veloxx.ai."
+        title="Free PDF Tools Online — Merge, Split, Compress, Convert | No Upload Required"
+        description="Free online PDF tools — merge, split, compress, and convert PDFs instantly in your browser. No uploads, no sign-ups, no limits. 100% private and secure."
+        canonical={SITE_URL}
+        keywords="free pdf tools, merge pdf, split pdf, compress pdf, jpg to pdf, pdf to jpg, online pdf tools, no upload, browser-based, free pdf converter, combine pdf, reduce pdf size"
+        jsonLd={homeJsonLd}
       />
 
       {/* Hero */}
@@ -81,9 +114,22 @@ export function HomePage() {
         </div>
       </section>
 
+      {/* SEO content — visible, useful, keyword-rich */}
+      <section className="max-w-3xl mx-auto px-6 sm:px-8 pb-16">
+        <h2 className="text-xl font-bold text-[var(--text-primary)] mb-4">Why use Veloxx PDF Tools?</h2>
+        <div className="space-y-3 text-sm text-[var(--text-secondary)] leading-relaxed">
+          <p>
+            Veloxx PDF Tools lets you <strong>merge PDF files</strong>, <strong>split PDFs</strong>, <strong>compress PDFs</strong>, and <strong>convert between JPG and PDF</strong> — all for free, directly in your browser. Unlike other online PDF tools, your files are never uploaded to a server. Everything runs locally using WebAssembly, so your documents stay completely private.
+          </p>
+          <p>
+            Whether you need to <strong>combine multiple PDFs into one</strong>, <strong>extract pages from a PDF</strong>, <strong>reduce PDF file size</strong> for email, or <strong>convert images to PDF</strong>, our tools handle it instantly with no sign-up required. Works on any device — desktop, tablet, or mobile.
+          </p>
+        </div>
+      </section>
+
       {/* Features strip */}
       <section className="border-y border-[var(--border-primary)] bg-[var(--surface-primary)]">
-        <div className="max-w-4xl mx-auto px-4 sm:px-6 py-10 sm:py-12">
+        <div className="max-w-4xl mx-auto px-6 sm:px-8 py-10 sm:py-12">
           <div className="grid grid-cols-3 gap-6 sm:gap-8 text-center">
             <div className="flex flex-col items-center gap-2.5">
               <div className="w-10 h-10 rounded-lg bg-emerald-50 dark:bg-emerald-500/10 flex items-center justify-center">
@@ -117,7 +163,7 @@ export function HomePage() {
       </section>
 
       {/* Data Room CTA */}
-      <section className="max-w-3xl mx-auto px-4 sm:px-6 py-16 sm:py-20 text-center">
+      <section className="max-w-3xl mx-auto px-6 sm:px-8 py-16 sm:py-20 text-center">
         <p className="text-sm font-medium text-[var(--accent-primary)] mb-3">Veloxx.ai</p>
         <h2 className="text-2xl sm:text-3xl font-bold text-[var(--text-primary)] mb-3">
           Need to share documents securely?
