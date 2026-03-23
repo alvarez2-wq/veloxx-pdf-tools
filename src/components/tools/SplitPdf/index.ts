@@ -1,0 +1,1 @@
+export { SplitPdfTool } from './SplitPdfTool';

@@ -1,0 +1,1 @@
+export { MergePdfTool } from './MergePdfTool';

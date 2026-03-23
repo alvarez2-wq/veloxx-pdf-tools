@@ -1,0 +1,73 @@
+import { ToolConfig } from '@/types/tool';
+
+export const tools: ToolConfig[] = [
+  {
+    slug: 'jpg-to-pdf',
+    title: 'JPG to PDF Converter',
+    shortTitle: 'JPG to PDF',
+    description: 'Convert JPG, JPEG, and PNG images to PDF instantly.',
+    metaDescription: 'Convert JPG images to PDF for free. 100% browser-based, no upload required. Drag & drop or paste from clipboard.',
+    icon: 'image',
+    color: 'blue',
+    acceptedTypes: 'image/jpeg,image/png,image/webp',
+    acceptLabel: 'JPG, PNG, WebP',
+    multiple: true,
+    ctaMessage: 'Need to share this PDF securely? Try a Veloxx data room.',
+  },
+  {
+    slug: 'merge-pdf',
+    title: 'Merge PDF Files',
+    shortTitle: 'Merge PDF',
+    description: 'Combine multiple PDF files into one document.',
+    metaDescription: 'Merge PDF files online for free. Combine multiple PDFs into one. 100% browser-based, no upload required.',
+    icon: 'merge',
+    color: 'green',
+    acceptedTypes: 'application/pdf',
+    acceptLabel: 'PDF',
+    multiple: true,
+    ctaMessage: 'Merging deal documents? Organize them in a Veloxx data room.',
+  },
+  {
+    slug: 'pdf-to-jpg',
+    title: 'PDF to JPG Converter',
+    shortTitle: 'PDF to JPG',
+    description: 'Convert PDF pages to high-quality JPG images.',
+    metaDescription: 'Convert PDF to JPG images for free. Extract pages as high-quality images. 100% browser-based, no upload required.',
+    icon: 'file-image',
+    color: 'purple',
+    acceptedTypes: 'application/pdf',
+    acceptLabel: 'PDF',
+    multiple: false,
+    ctaMessage: 'Reviewing deal materials? Let Veloxx AI summarize your documents.',
+  },
+  {
+    slug: 'compress-pdf',
+    title: 'Compress PDF',
+    shortTitle: 'Compress PDF',
+    description: 'Reduce PDF file size without losing quality.',
+    metaDescription: 'Compress PDF files online for free. Reduce file size by up to 80%. 100% browser-based, no upload required.',
+    icon: 'minimize-2',
+    color: 'orange',
+    acceptedTypes: 'application/pdf',
+    acceptLabel: 'PDF',
+    multiple: false,
+    ctaMessage: 'Sharing large documents with investors? Use Veloxx for secure file sharing.',
+  },
+  {
+    slug: 'split-pdf',
+    title: 'Split PDF',
+    shortTitle: 'Split PDF',
+    description: 'Split a PDF into multiple files by pages or ranges.',
+    metaDescription: 'Split PDF files online for free. Extract pages or split by ranges. 100% browser-based, no upload required.',
+    icon: 'scissors',
+    color: 'cyan',
+    acceptedTypes: 'application/pdf',
+    acceptLabel: 'PDF',
+    multiple: false,
+    ctaMessage: 'Managing due diligence documents? Veloxx data rooms make it easy.',
+  },
+];
+
+export function getToolBySlug(slug: string): ToolConfig | undefined {
+  return tools.find((t) => t.slug === slug);
+}

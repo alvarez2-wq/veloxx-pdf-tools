@@ -1,0 +1,1 @@
+export { JpgToPdfTool } from './JpgToPdfTool';
