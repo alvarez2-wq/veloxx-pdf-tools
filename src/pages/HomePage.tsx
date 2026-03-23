@@ -1,6 +1,5 @@
 import { Link } from 'react-router-dom';
 import { SEOHead } from '@/components/layout/SEOHead';
-import { PrivacyBadge } from '@/components/shared/PrivacyBadge';
 import { tools } from '@/config/tools';
 import {
   Image,
@@ -9,22 +8,25 @@ import {
   Minimize2,
   Scissors,
   ArrowRight,
+  Shield,
+  Zap,
+  Lock,
 } from 'lucide-react';
 
 const iconMap: Record<string, React.ReactNode> = {
-  image: <Image size={28} />,
-  merge: <Merge size={28} />,
-  'file-image': <FileImage size={28} />,
-  'minimize-2': <Minimize2 size={28} />,
-  scissors: <Scissors size={28} />,
+  image: <Image size={24} />,
+  merge: <Merge size={24} />,
+  'file-image': <FileImage size={24} />,
+  'minimize-2': <Minimize2 size={24} />,
+  scissors: <Scissors size={24} />,
 };
 
-const colorMap: Record<string, string> = {
-  blue: 'from-blue-500/15 to-blue-600/5 text-blue-400',
-  green: 'from-green-500/15 to-green-600/5 text-green-400',
-  purple: 'from-purple-500/15 to-purple-600/5 text-purple-400',
-  orange: 'from-orange-500/15 to-orange-600/5 text-orange-400',
-  cyan: 'from-cyan-500/15 to-cyan-600/5 text-cyan-400',
+const colorMap: Record<string, { icon: string; bg: string; border: string }> = {
+  blue: { icon: 'text-blue-600 dark:text-blue-400', bg: 'bg-blue-50 dark:bg-blue-500/10', border: 'group-hover:border-blue-200 dark:group-hover:border-blue-500/30' },
+  green: { icon: 'text-emerald-600 dark:text-emerald-400', bg: 'bg-emerald-50 dark:bg-emerald-500/10', border: 'group-hover:border-emerald-200 dark:group-hover:border-emerald-500/30' },
+  purple: { icon: 'text-violet-600 dark:text-violet-400', bg: 'bg-violet-50 dark:bg-violet-500/10', border: 'group-hover:border-violet-200 dark:group-hover:border-violet-500/30' },
+  orange: { icon: 'text-orange-600 dark:text-orange-400', bg: 'bg-orange-50 dark:bg-orange-500/10', border: 'group-hover:border-orange-200 dark:group-hover:border-orange-500/30' },
+  cyan: { icon: 'text-cyan-600 dark:text-cyan-400', bg: 'bg-cyan-50 dark:bg-cyan-500/10', border: 'group-hover:border-cyan-200 dark:group-hover:border-cyan-500/30' },
 };
 
 export function HomePage() {
@@ -34,64 +36,104 @@ export function HomePage() {
         title="Free PDF Tools Online — No Upload Required | Veloxx Tools"
         description="Free online PDF tools — merge, split, compress, convert. 100% browser-based, no file uploads. Privacy-first by Veloxx.ai."
       />
-      <div className="max-w-5xl mx-auto px-4 sm:px-6 py-16 sm:py-24">
-        {/* Hero */}
-        <div className="text-center mb-16">
-          <h1 className="text-4xl sm:text-5xl font-bold text-[var(--text-primary)] mb-4 tracking-tight">
-            Free PDF Tools
-          </h1>
-          <p className="text-lg text-[var(--text-secondary)] max-w-2xl mx-auto mb-6">
-            Merge, split, compress, and convert PDFs — instantly, right in your browser.
-            No uploads, no sign-ups, no limits.
-          </p>
-          <div className="flex justify-center">
-            <PrivacyBadge />
-          </div>
-        </div>
 
-        {/* Tool Grid */}
-        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
-          {tools.map((tool) => (
-            <Link
-              key={tool.slug}
-              to={`/${tool.slug}`}
-              className="group p-6 rounded-2xl bg-[var(--surface-primary)] border border-[var(--border-primary)] hover:border-[var(--border-secondary)] hover:-translate-y-0.5 hover:shadow-lg transition-all duration-200"
-            >
-              <div
-                className={`w-14 h-14 rounded-xl bg-gradient-to-br ${colorMap[tool.color]} flex items-center justify-center mb-4`}
+      {/* Hero */}
+      <section className="max-w-4xl mx-auto px-6 sm:px-8 pt-8 sm:pt-14 pb-12 text-center">
+        <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[var(--surface-primary)] border border-[var(--border-primary)] text-xs font-medium text-[var(--text-secondary)] mb-6">
+          <Shield size={13} className="text-emerald-500" />
+          100% browser-based — files never leave your device
+        </div>
+        <h1 className="text-4xl sm:text-6xl font-extrabold text-[var(--text-primary)] tracking-tight leading-[1.1] mb-5">
+          PDF tools that
+          <br />
+          <span className="text-[var(--accent-primary)]">just work</span>
+        </h1>
+        <p className="text-lg sm:text-xl text-[var(--text-secondary)] max-w-xl mx-auto leading-relaxed">
+          Merge, split, compress, and convert — instantly in your browser. No uploads. No sign-ups. No limits.
+        </p>
+      </section>
+
+      {/* Tool Grid */}
+      <section className="max-w-4xl mx-auto px-6 sm:px-8 pb-16">
+        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-4">
+          {tools.map((tool) => {
+            const colors = colorMap[tool.color];
+            return (
+              <Link
+                key={tool.slug}
+                to={`/${tool.slug}`}
+                className={`group p-5 rounded-xl bg-[var(--background)] border border-[var(--border-primary)] ${colors.border} hover:shadow-[var(--card-shadow-hover)] transition-all duration-200`}
+                style={{ boxShadow: 'var(--card-shadow)' }}
               >
-                {iconMap[tool.icon]}
-              </div>
-              <h2 className="text-lg font-semibold text-[var(--text-primary)] mb-1 group-hover:text-[var(--accent-primary)] transition-colors">
-                {tool.shortTitle}
-              </h2>
-              <p className="text-sm text-[var(--text-tertiary)] mb-3">{tool.description}</p>
-              <span className="inline-flex items-center gap-1 text-sm font-medium text-[var(--accent-primary)]">
-                Use tool <ArrowRight size={14} className="group-hover:translate-x-0.5 transition-transform" />
-              </span>
-            </Link>
-          ))}
+                <div className="flex items-center gap-3 mb-2">
+                  <div className={`shrink-0 w-10 h-10 rounded-lg ${colors.bg} ${colors.icon} flex items-center justify-center`}>
+                    {iconMap[tool.icon]}
+                  </div>
+                  <h2 className="text-[15px] font-semibold text-[var(--text-primary)] flex-1">
+                    {tool.shortTitle}
+                  </h2>
+                  <ArrowRight size={14} className="text-[var(--text-muted)] group-hover:text-[var(--accent-primary)] group-hover:translate-x-0.5 transition-all shrink-0" />
+                </div>
+                <p className="text-sm text-[var(--text-tertiary)] leading-snug pl-[52px]">{tool.description}</p>
+              </Link>
+            );
+          })}
+        </div>
+      </section>
 
-          {/* Data Room CTA Card */}
-          <div className="p-6 rounded-2xl bg-gradient-to-br from-[var(--accent-primary)]/10 to-[var(--accent-primary)]/5 border border-[var(--accent-primary)]/20">
-            <div className="w-14 h-14 rounded-xl bg-[var(--accent-primary)]/20 flex items-center justify-center mb-4">
-              <span className="text-2xl">🔒</span>
+      {/* Features strip */}
+      <section className="border-y border-[var(--border-primary)] bg-[var(--surface-primary)]">
+        <div className="max-w-4xl mx-auto px-4 sm:px-6 py-10 sm:py-12">
+          <div className="grid grid-cols-3 gap-6 sm:gap-8 text-center">
+            <div className="flex flex-col items-center gap-2.5">
+              <div className="w-10 h-10 rounded-lg bg-emerald-50 dark:bg-emerald-500/10 flex items-center justify-center">
+                <Lock size={18} className="text-emerald-600 dark:text-emerald-400" />
+              </div>
+              <div>
+                <p className="text-sm font-semibold text-[var(--text-primary)]">Private</p>
+                <p className="text-xs text-[var(--text-tertiary)] mt-0.5 hidden sm:block">Files stay on your device</p>
+              </div>
             </div>
-            <h2 className="text-lg font-semibold text-[var(--text-primary)] mb-1">Need a Data Room?</h2>
-            <p className="text-sm text-[var(--text-tertiary)] mb-3">
-              Share documents securely with AI-powered Q&A. Built for M&A, fundraising, and due diligence.
-            </p>
-            <a
-              href="https://veloxx.ai/register"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex items-center gap-1 text-sm font-medium text-[var(--accent-primary)]"
-            >
-              Try Veloxx.ai free <ArrowRight size={14} />
-            </a>
+            <div className="flex flex-col items-center gap-2.5">
+              <div className="w-10 h-10 rounded-lg bg-blue-50 dark:bg-blue-500/10 flex items-center justify-center">
+                <Zap size={18} className="text-blue-600 dark:text-blue-400" />
+              </div>
+              <div>
+                <p className="text-sm font-semibold text-[var(--text-primary)]">Instant</p>
+                <p className="text-xs text-[var(--text-tertiary)] mt-0.5 hidden sm:block">No server processing</p>
+              </div>
+            </div>
+            <div className="flex flex-col items-center gap-2.5">
+              <div className="w-10 h-10 rounded-lg bg-violet-50 dark:bg-violet-500/10 flex items-center justify-center">
+                <Shield size={18} className="text-violet-600 dark:text-violet-400" />
+              </div>
+              <div>
+                <p className="text-sm font-semibold text-[var(--text-primary)]">Unlimited</p>
+                <p className="text-xs text-[var(--text-tertiary)] mt-0.5 hidden sm:block">No sign-up required</p>
+              </div>
+            </div>
           </div>
         </div>
-      </div>
+      </section>
+
+      {/* Data Room CTA */}
+      <section className="max-w-3xl mx-auto px-4 sm:px-6 py-16 sm:py-20 text-center">
+        <p className="text-sm font-medium text-[var(--accent-primary)] mb-3">Veloxx.ai</p>
+        <h2 className="text-2xl sm:text-3xl font-bold text-[var(--text-primary)] mb-3">
+          Need to share documents securely?
+        </h2>
+        <p className="text-[var(--text-secondary)] max-w-md mx-auto mb-6">
+          Veloxx is an AI-powered data room built for M&A, fundraising, and due diligence.
+        </p>
+        <a
+          href="https://veloxx.ai/register"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="inline-flex items-center gap-2 px-6 py-2.5 text-sm font-medium rounded-lg bg-[var(--accent-primary)] text-white hover:bg-[var(--accent-primary-hover)] transition-colors"
+        >
+          Try Veloxx.ai free <ArrowRight size={15} />
+        </a>
+      </section>
     </>
   );
 }

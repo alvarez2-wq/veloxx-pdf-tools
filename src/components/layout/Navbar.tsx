@@ -31,14 +31,14 @@ export function Navbar({ theme, toggleTheme }: NavbarProps) {
           : 'bg-[var(--background)]'
       }`}
     >
-      <div className="max-w-6xl mx-auto px-4 sm:px-6">
+      <div className="max-w-6xl mx-auto px-5 sm:px-6">
         <div className="flex items-center justify-between h-16">
           {/* Logo */}
           <Link to="/" className="flex items-center gap-2 shrink-0">
             <img
               src={theme === 'dark' ? '/logos/veloxx-logo-black.svg' : '/logos/veloxx-logo-primary-transparent.svg'}
               alt="Veloxx.ai"
-              className="h-8 w-auto"
+              className="h-7 w-auto"
             />
             <span className="text-sm font-medium text-[var(--text-tertiary)] hidden sm:block">Tools</span>
           </Link>

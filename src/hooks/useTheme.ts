@@ -2,12 +2,20 @@ import { useState, useEffect, useCallback } from 'react';
 
 type Theme = 'dark' | 'light';
 
+function getSystemTheme(): Theme {
+  if (typeof window !== 'undefined' && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+    return 'dark';
+  }
+  return 'light';
+}
+
 export function useTheme() {
   const [theme, setThemeState] = useState<Theme>(() => {
     if (typeof window !== 'undefined') {
-      return (localStorage.getItem('veloxx-tools-theme') as Theme) || 'dark';
+      const stored = localStorage.getItem('veloxx-tools-theme') as Theme | null;
+      return stored || getSystemTheme();
     }
-    return 'dark';
+    return 'light';
   });
 
   useEffect(() => {

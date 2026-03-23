@@ -11,7 +11,7 @@ export function Footer({ theme }: { theme: 'dark' | 'light' }) {
             <img
               src={theme === 'dark' ? '/logos/veloxx-logo-black.svg' : '/logos/veloxx-logo-primary-transparent.svg'}
               alt="Veloxx.ai"
-              className="h-8 w-auto mb-3"
+              className="h-7 w-auto mb-3"
             />
             <p className="text-sm text-[var(--text-tertiary)] max-w-xs mb-4">
               Free PDF tools by Veloxx.ai. 100% browser-based — your files never leave your device.
