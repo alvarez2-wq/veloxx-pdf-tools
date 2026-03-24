@@ -38,7 +38,7 @@ export function Navbar({ theme, toggleTheme }: NavbarProps) {
             <img
               src={theme === 'dark' ? '/logos/veloxx-logo-black.svg' : '/logos/veloxx-logo-primary-transparent.svg'}
               alt="Veloxx.ai"
-              className="h-7 w-auto"
+              className="h-10 sm:h-12 w-auto"
             />
             <span className="text-sm font-medium text-[var(--text-tertiary)] hidden sm:block">Tools</span>
           </Link>
