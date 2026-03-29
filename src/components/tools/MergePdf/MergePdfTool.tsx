@@ -6,6 +6,7 @@ import { FileList } from '@/components/shared/FileList';
 import { ProgressBar } from '@/components/shared/ProgressBar';
 import { DownloadButton } from '@/components/shared/DownloadButton';
 import { PrivacyBadge } from '@/components/shared/PrivacyBadge';
+import { SharePanel } from '@/components/shared/SharePanel';
 
 export function MergePdfTool({ className }: ToolProps) {
   const { files, isDragging, error: fileError, addFiles, removeFile, moveFile, clearFiles, onDragOver, onDragLeave, onDrop } = useFileDrop({
@@ -62,19 +63,26 @@ export function MergePdfTool({ className }: ToolProps) {
           )}
         </>
       ) : (
-        <div className="text-center space-y-4 py-8">
-          <div className="text-4xl mb-2">✅</div>
-          <p className="text-lg font-semibold text-[var(--text-primary)]">PDFs merged successfully!</p>
-          <p className="text-sm text-[var(--text-secondary)]">{files.length} files combined into one</p>
-          <div className="flex items-center justify-center gap-3">
-            <DownloadButton blob={result} filename="merged.pdf" label="Download Merged PDF" />
-            <button
-              onClick={handleReset}
-              className="px-6 py-3 rounded-xl border border-[var(--border-secondary)] text-[var(--text-secondary)] hover:bg-[var(--hover-bg)] transition-colors text-sm"
-            >
-              Merge More
-            </button>
+        <div className="space-y-4">
+          <div className="text-center space-y-4 py-8">
+            <div className="text-4xl mb-2">✅</div>
+            <p className="text-lg font-semibold text-[var(--text-primary)]">PDFs merged successfully!</p>
+            <p className="text-sm text-[var(--text-secondary)]">{files.length} files combined into one</p>
+            <div className="flex items-center justify-center gap-3">
+              <DownloadButton blob={result} filename="merged.pdf" label="Download Merged PDF" />
+              <button
+                onClick={handleReset}
+                className="px-6 py-3 rounded-xl border border-[var(--border-secondary)] text-[var(--text-secondary)] hover:bg-[var(--hover-bg)] transition-colors text-sm"
+              >
+                Merge More
+              </button>
+            </div>
           </div>
+          <SharePanel
+            toolName="Merge PDF"
+            toolSlug="merge"
+            successMsg={`merged ${files.length} PDFs into one`}
+          />
         </div>
       )}
 

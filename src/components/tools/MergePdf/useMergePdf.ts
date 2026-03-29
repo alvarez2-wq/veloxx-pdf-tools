@@ -1,5 +1,6 @@
 import { useState, useCallback } from 'react';
 import { PDFDocument } from 'pdf-lib';
+import { addVeloxxWatermark } from '@/utils/watermark';
 
 export function useMergePdf() {
   const [processing, setProcessing] = useState(false);
@@ -24,7 +25,7 @@ export function useMergePdf() {
 
       for (let i = 0; i < files.length; i++) {
         setStatus(`Processing file ${i + 1} of ${files.length}: ${files[i].name}`);
-        setProgress(((i) / files.length) * 90);
+        setProgress(((i) / files.length) * 85);
 
         const bytes = new Uint8Array(await files[i].arrayBuffer());
         const sourcePdf = await PDFDocument.load(bytes, { ignoreEncryption: true });
@@ -32,8 +33,12 @@ export function useMergePdf() {
         pages.forEach((page) => mergedPdf.addPage(page));
       }
 
+      setStatus('Adding watermark...');
+      setProgress(88);
+      await addVeloxxWatermark(mergedPdf);
+
       setStatus('Generating merged PDF...');
-      setProgress(90);
+      setProgress(92);
 
       const pdfBytes = await mergedPdf.save();
       const blob = new Blob([pdfBytes.buffer as ArrayBuffer], { type: 'application/pdf' });

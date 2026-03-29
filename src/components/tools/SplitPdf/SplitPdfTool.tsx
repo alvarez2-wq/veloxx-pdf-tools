@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { Download } from 'lucide-react';
 import JSZip from 'jszip';
+import { SharePanel } from '@/components/shared/SharePanel';
 import { ToolProps } from '@/types/tool';
 import { useFileDrop } from '@/hooks/useFileDrop';
 import { useSplitPdf, SplitMode } from './useSplitPdf';
@@ -172,6 +173,11 @@ export function SplitPdfTool({ className }: ToolProps) {
               </a>
             ))}
           </div>
+          <SharePanel
+            toolName="Split PDF"
+            toolSlug="split"
+            successMsg={`split into ${result.files.length} files`}
+          />
         </div>
       )}
 

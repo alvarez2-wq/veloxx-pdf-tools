@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { Download } from 'lucide-react';
 import JSZip from 'jszip';
+import { SharePanel } from '@/components/shared/SharePanel';
 import { ToolProps } from '@/types/tool';
 import { useFileDrop } from '@/hooks/useFileDrop';
 import { usePdfToJpg } from './usePdfToJpg';
@@ -134,6 +135,11 @@ export function PdfToJpgTool({ className }: ToolProps) {
               </a>
             ))}
           </div>
+          <SharePanel
+            toolName="PDF to JPG"
+            toolSlug="pdf-to-jpg"
+            successMsg={`converted ${pages.length} page${pages.length !== 1 ? 's' : ''} to JPG`}
+          />
         </div>
       )}
 

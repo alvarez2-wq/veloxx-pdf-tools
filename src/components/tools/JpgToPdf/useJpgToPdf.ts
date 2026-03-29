@@ -1,5 +1,6 @@
 import { useState, useCallback } from 'react';
 import { PDFDocument } from 'pdf-lib';
+import { addVeloxxWatermark } from '@/utils/watermark';
 
 type PageSize = 'fit' | 'a4' | 'letter';
 
@@ -31,7 +32,7 @@ export function useJpgToPdf() {
 
       for (let i = 0; i < files.length; i++) {
         setStatus(`Processing image ${i + 1} of ${files.length}...`);
-        setProgress(((i) / files.length) * 100);
+        setProgress(((i) / files.length) * 80);
 
         const bytes = new Uint8Array(await files[i].arrayBuffer());
         const type = files[i].type;
@@ -76,8 +77,12 @@ export function useJpgToPdf() {
         page.drawImage(image, { x, y, width: drawWidth, height: drawHeight });
       }
 
+      setStatus('Adding watermark...');
+      setProgress(85);
+      await addVeloxxWatermark(pdfDoc);
+
       setStatus('Generating PDF...');
-      setProgress(90);
+      setProgress(92);
 
       const pdfBytes = await pdfDoc.save();
       const blob = new Blob([pdfBytes.buffer as ArrayBuffer], { type: 'application/pdf' });

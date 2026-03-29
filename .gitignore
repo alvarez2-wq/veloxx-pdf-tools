@@ -9,3 +9,4 @@ dist
 !public/**
 !src/**/*.png
 !src/**/*.jpg
+.vercel

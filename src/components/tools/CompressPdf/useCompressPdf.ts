@@ -1,5 +1,6 @@
 import { useState, useCallback } from 'react';
 import { PDFDocument } from 'pdf-lib';
+import { addVeloxxWatermark } from '@/utils/watermark';
 
 export interface CompressionResult {
   blob: Blob;
@@ -43,6 +44,10 @@ export function useCompressPdf() {
       setStatus('Optimizing...');
       setProgress(60);
 
+      setStatus('Adding watermark...');
+      setProgress(75);
+      await addVeloxxWatermark(pdfDoc);
+
       // Save with object stream optimization
       const compressedBytes = await pdfDoc.save({
         useObjectStreams: true,
@@ -50,7 +55,7 @@ export function useCompressPdf() {
       });
 
       setStatus('Finalizing...');
-      setProgress(90);
+      setProgress(92);
 
       const compressedSize = compressedBytes.length;
       const savings = Math.round(((originalSize - compressedSize) / originalSize) * 100);

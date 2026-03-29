@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { ToolProps } from '@/types/tool';
+import { SharePanel } from '@/components/shared/SharePanel';
 import { useFileDrop } from '@/hooks/useFileDrop';
 import { useJpgToPdf } from './useJpgToPdf';
 import { FileDropZone } from '@/components/shared/FileDropZone';
@@ -112,6 +113,11 @@ export function JpgToPdfTool({ onComplete, className }: ToolProps) {
               Convert More
             </button>
           </div>
+          <SharePanel
+            toolName="JPG to PDF"
+            toolSlug="jpg-to-pdf"
+            successMsg={`converted ${files.length} image${files.length !== 1 ? 's' : ''} to PDF`}
+          />
         </div>
       )}
 

@@ -6,6 +6,7 @@ import { FileList } from '@/components/shared/FileList';
 import { ProgressBar } from '@/components/shared/ProgressBar';
 import { DownloadButton } from '@/components/shared/DownloadButton';
 import { PrivacyBadge } from '@/components/shared/PrivacyBadge';
+import { SharePanel } from '@/components/shared/SharePanel';
 
 function formatSize(bytes: number): string {
   if (bytes < 1024) return `${bytes} B`;
@@ -64,35 +65,42 @@ export function CompressPdfTool({ className }: ToolProps) {
           )}
         </>
       ) : (
-        <div className="text-center space-y-4 py-8">
-          <div className="text-4xl mb-2">✅</div>
-          <p className="text-lg font-semibold text-[var(--text-primary)]">PDF compressed!</p>
-          <div className="inline-flex items-center gap-6 px-6 py-3 rounded-xl bg-[var(--surface-primary)] border border-[var(--border-primary)]">
-            <div className="text-center">
-              <p className="text-xs text-[var(--text-muted)] uppercase">Original</p>
-              <p className="text-sm font-semibold text-[var(--text-primary)]">{formatSize(result.originalSize)}</p>
+        <div className="space-y-4">
+          <div className="text-center space-y-4 py-8">
+            <div className="text-4xl mb-2">✅</div>
+            <p className="text-lg font-semibold text-[var(--text-primary)]">PDF compressed!</p>
+            <div className="inline-flex items-center gap-6 px-6 py-3 rounded-xl bg-[var(--surface-primary)] border border-[var(--border-primary)]">
+              <div className="text-center">
+                <p className="text-xs text-[var(--text-muted)] uppercase">Original</p>
+                <p className="text-sm font-semibold text-[var(--text-primary)]">{formatSize(result.originalSize)}</p>
+              </div>
+              <div className="text-2xl text-[var(--accent-primary)]">&rarr;</div>
+              <div className="text-center">
+                <p className="text-xs text-[var(--text-muted)] uppercase">Compressed</p>
+                <p className="text-sm font-semibold text-[var(--success)]">{formatSize(result.compressedSize)}</p>
+              </div>
+              <div className="text-center">
+                <p className="text-xs text-[var(--text-muted)] uppercase">Saved</p>
+                <p className="text-sm font-semibold text-[var(--accent-primary)]">
+                  {result.savings > 0 ? `${result.savings}%` : 'Already optimal'}
+                </p>
+              </div>
             </div>
-            <div className="text-2xl text-[var(--accent-primary)]">&rarr;</div>
-            <div className="text-center">
-              <p className="text-xs text-[var(--text-muted)] uppercase">Compressed</p>
-              <p className="text-sm font-semibold text-[var(--success)]">{formatSize(result.compressedSize)}</p>
-            </div>
-            <div className="text-center">
-              <p className="text-xs text-[var(--text-muted)] uppercase">Saved</p>
-              <p className="text-sm font-semibold text-[var(--accent-primary)]">
-                {result.savings > 0 ? `${result.savings}%` : 'Already optimal'}
-              </p>
+            <div className="flex items-center justify-center gap-3">
+              <DownloadButton blob={result.blob} filename="compressed.pdf" label="Download Compressed PDF" />
+              <button
+                onClick={handleReset}
+                className="px-6 py-3 rounded-xl border border-[var(--border-secondary)] text-[var(--text-secondary)] hover:bg-[var(--hover-bg)] transition-colors text-sm"
+              >
+                Compress Another
+              </button>
             </div>
           </div>
-          <div className="flex items-center justify-center gap-3">
-            <DownloadButton blob={result.blob} filename="compressed.pdf" label="Download Compressed PDF" />
-            <button
-              onClick={handleReset}
-              className="px-6 py-3 rounded-xl border border-[var(--border-secondary)] text-[var(--text-secondary)] hover:bg-[var(--hover-bg)] transition-colors text-sm"
-            >
-              Compress Another
-            </button>
-          </div>
+          <SharePanel
+            toolName="Compress PDF"
+            toolSlug="compress"
+            successMsg={result.savings > 0 ? `reduced file size by ${result.savings}%` : undefined}
+          />
         </div>
       )}
 
