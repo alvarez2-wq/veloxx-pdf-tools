@@ -34,14 +34,22 @@ export function Navbar({ theme, toggleTheme }: NavbarProps) {
       <div className="max-w-6xl mx-auto px-5 sm:px-6">
         <div className="flex items-center justify-between h-16">
           {/* Logo */}
-          <Link to="/" className="flex items-center gap-2 shrink-0">
-            <img
-              src={theme === 'dark' ? '/logos/veloxx-logo-black.svg' : '/logos/veloxx-logo-primary-transparent.svg'}
-              alt="Veloxx.ai"
-              className="h-10 sm:h-12 w-auto"
-            />
-            <span className="text-sm font-medium text-[var(--text-tertiary)] hidden sm:block">Tools</span>
-          </Link>
+          <div className="flex items-center gap-1 shrink-0">
+            <a href="https://veloxx.ai" target="_blank" rel="noopener noreferrer">
+              <img
+                src={theme === 'dark' ? '/logos/veloxx-logo-black.svg' : '/logos/veloxx-logo-primary-transparent.svg'}
+                alt="Veloxx.ai"
+                className="h-10 sm:h-12 w-auto"
+              />
+            </a>
+            <Link
+              to="/"
+              className="hidden sm:block text-[var(--text-tertiary)] hover:text-[var(--text-primary)] transition-colors"
+              style={{ fontFamily: "'Jura', sans-serif", fontWeight: 300, fontSize: '1.375rem', letterSpacing: '0.05em' }}
+            >
+              Tools
+            </Link>
+          </div>
 
           {/* Desktop tool links */}
           <div className="hidden md:flex items-center gap-1">
